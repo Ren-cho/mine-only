@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            color: #ff4d4d;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+            height: 200px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+        }
+        .yes {
+            background-color: #ff4d4d;
+            color: white;
+            left: 45%;
+        }
+        .no {
+            background-color: #b3b3b3;
+            color: white;
+            left: 55%;
+        }
+        .note {
+            display: none; /* Initially hide the notes */
+            font-size: 20px;
+            color: #ff4d4d;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pwede ba kitang ilabas sa 14 my Honeybunchsugarplumhumpyyumpudumpysweetiepiepookiebearcupcake? 🫶🫶</h1>
+        <div class="buttons">
+            <button class="yes" id="yes" onclick="sayYes()">Yes</button>
+            <button class="no" id="no" onclick="moveNo()">No</button>
+        </div>
+        <p id="note1" class="note">Hindi ka papayag?! 😠</p>
+        <p id="note2" class="note">Di mo na ba ko love? 😭</p>
+        <p id="note3" class="note">Pagod na ko 😩</p>
+    </div>
+
+    <script>
+        let attempts = 0;
+        let yesButton = document.getElementById("yes");
+        let noButton = document.getElementById("no");
+        let note1 = document.getElementById("note1");
+        let note2 = document.getElementById("note2");
+        let note3 = document.getElementById("note3");
+
+        let yesSizeIncrement = 1.05; 
+        let maxYesSize = 3;  
+        let alertShown = false; 
+        let noMoving = true; 
+        let firstAttempt = true; 
+        let secondAttempt = false; 
+
+        function sayYes() {
+            alert("Thank you Wifeeyyy!!! I love you so mucchh! all ways and always poo!!! 🫶🫶🫶🫶");
+        }
+
+        function moveNo() {
+            if (firstAttempt) {
+                alert("Hindi pwedeng No! 🫵🫵🫵"); 
+                firstAttempt = false; 
+                return; 
+            }
+
+            if (attempts === 2 && !secondAttempt) {
+                alert("Sabing hindi pwede eh 😤😤😤");
+                secondAttempt = true; 
+            }
+
+            if (noMoving) {
+                let moveDistance = 15; 
+                let currentLeft = parseFloat(noButton.style.left || 55);
+                let currentTop = parseFloat(noButton.style.top || 50);
+                
+                let randomDirectionX = Math.random() > 0.5 ? 1 : -1; 
+                let randomDirectionY = Math.random() > 0.5 ? 1 : -1; 
+
+                noButton.style.left = (currentLeft + moveDistance * randomDirectionX) + "%";
+                noButton.style.top = (currentTop + moveDistance * randomDirectionY) + "%";
+            }
+
+            attempts++;
+
+            if (attempts >= 3) {
+                yesButton.style.fontSize = `${24 + (attempts - 3) * 2}px`; 
+                yesButton.style.padding = `${15 + (attempts - 3) * 5}px ${30 + (attempts - 3) * 10}px`;
+
+                note1.style.display = "block";
+            }
+
+            if (attempts >= 5 && !alertShown) {
+                alert("Ayokong manakit 🖕🖕🖕"); 
+                alertShown = true;
+            }
+
+            let scaleFactor = Math.min(yesSizeIncrement ** (attempts - 2), maxYesSize);
+            yesButton.style.transform = `scale(${scaleFactor})`;
+
+            if (attempts >= 6) {
+                note2.style.display = "block"; 
+            }
+
+            if (attempts >= 7) {
+                note3.style.display = "block"; 
+                noMoving = false; 
+            }
+        }
+    </script>
+
+</body>
+</html>
+
